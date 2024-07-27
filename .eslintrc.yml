@@ -1,0 +1,49 @@
+env:
+  browser: true
+  es6: true
+extends:
+  - "eslint:recommended"
+  - "plugin:react/recommended"
+  - "plugin:@typescript-eslint/eslint-recommended"
+  - "plugin:import/recommended"
+  - "plugin:import/errors"
+  - "plugin:import/warnings"
+  - "plugin:tailwindcss/recommended"
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+plugins:
+  - react
+  - "@typescript-eslint"
+  - "react-hooks"
+  - "tailwindcss"
+rules:
+  import/order: # https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md
+    - "warn"
+    - alphabetize: { order: asc, caseInsensitive: true }
+      newlines-between: never
+      pathGroups:
+        - { pattern: "~/**", group: "parent" }
+        - { pattern: "react", group: "parent", position: "before" }
+  import/no-unresolved: 0
+  "no-unused-vars": "off"
+  "@typescript-eslint/no-unused-vars": ["error", {}]
+  "react/jsx-curly-brace-presence": "error"
+  "react-hooks/rules-of-hooks": "error"
+  "react-hooks/exhaustive-deps": "error"
+  "tailwindcss/no-custom-classname": "error"
+settings:
+  react:
+    version: "detect"
+# https://github.com/shadcn-ui/ui/issues/120
+overrides:
+  - files: ["**/components/ui/*.tsx"]
+    rules:
+      "react/prop-types": "off"
+      "react-refresh/only-export-components": "off"
