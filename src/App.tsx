@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { CelebrationDialog } from "./components/molcules/CelebrationDialog";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
@@ -10,14 +9,36 @@ function App() {
     initialValue: null,
   });
   const [isVisitedToday, setIsVisitedToday] = useState<boolean>(false);
+  const [openSelebrationDialog, setOpenSelebrationDialog] = useState(false);
 
-  // TODO: お祝いクラッカーを鳴らす
+  const handleOpenSelebrationDialog = () => {
+    setOpenSelebrationDialog(true);
+  };
+
+  const handleCloseSelebrationDialog = () => {
+    setOpenSelebrationDialog(false);
+    handleSelebrate();
+  };
+
+  const handleSelebrate = () => {
+    playCelebrationSound();
+    setTimeout(() => playCelebrationSound(), 300);
+    setTimeout(() => playCelebrationSound(), 600);
+    setTimeout(() => playCelebrationSound(), 900);
+    setTimeout(() => playCelebrationSound(), 1200);
+  };
+
+  const playCelebrationSound = () => {
+    const audio = new Audio("/celebration_cracker.mp3");
+    audio.play();
+  };
+
   useEffect(() => {
     if (isVisitedToday) return;
     if (!visitedDate) {
-      alert("Welcome to Vite + React!");
       setVisitedDate(dayjs().utc().toISOString());
       setIsVisitedToday(true);
+      handleOpenSelebrationDialog();
     } else {
       setIsVisitedToday(true);
       const diffDate = dayjs().utc().diff(dayjs(visitedDate).utc(), "day");
@@ -30,32 +51,10 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() =>
-            setVisitedDate((prev) =>
-              prev ? null : dayjs("2024/7/26 17:00").utc().toISOString(),
-            )
-          }
-        >
-          count is {visitedDate?.toString()}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CelebrationDialog
+        open={openSelebrationDialog}
+        handleClose={handleCloseSelebrationDialog}
+      />
     </>
   );
 }
