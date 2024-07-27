@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [hasBeenVisited, setHasBeenVisited] = useLocalStorage({
+    storageKey: "hasBeenVisited",
+    initialValue: false,
+  });
 
   return (
     <>
@@ -18,8 +22,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => setHasBeenVisited((prev) => !prev)}>
+          count is {hasBeenVisited.toString()}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
