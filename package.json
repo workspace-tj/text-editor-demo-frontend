@@ -16,7 +16,11 @@
     "format:ci": "prettier --check --ignore-unknown ."
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.9.0",
+    "@mui/icons-material": "^5.16.5",
+    "@mui/material": "^5.16.5",
     "dayjs": "^1.11.12",
     "i18next": "^23.12.2",
     "i18next-browser-languagedetector": "^8.0.0",
