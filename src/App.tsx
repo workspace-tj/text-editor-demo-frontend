@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import ParticleSketch from "./components/atoms/ParticleSketch";
-// import { Tape } from "./components/atoms/Tape";
+import { Tape } from "./components/atoms/Tape";
 import { CelebrationDialog } from "./components/molcules/CelebrationDialog";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
@@ -74,7 +74,7 @@ function App() {
           background: `${"lightgreen"}`,
         }}
       />
-      {/* <Tape /> */}
+      <Tape />
     </div>
   );
 }
