@@ -7,6 +7,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { DefaultTemplate } from "./components/templates/DefaultTemplate.tsx";
 import "./index.css";
+import { CelebrationProvider } from "./hooks/useCelebration.tsx";
 import { theme } from "./theme.ts";
 
 dayjs.extend(utc);
@@ -17,9 +18,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <DefaultTemplate>
-        <App />
-      </DefaultTemplate>
+      <CelebrationProvider>
+        <DefaultTemplate>
+          <App />
+        </DefaultTemplate>
+      </CelebrationProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );

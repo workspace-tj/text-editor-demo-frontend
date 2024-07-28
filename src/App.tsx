@@ -2,31 +2,8 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import ParticleSketch from "./components/atoms/ParticleSketch";
 import { CelebrationDialog } from "./components/molcules/CelebrationDialog";
-import { INITIAL_POSITION_ABSOLUTE, VELOCITY_ABSOLUTE } from "./constants";
+import { useCelebration } from "./hooks/useCelebration";
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { generateParticles, Particle } from "./utils/particle-helper";
-
-const {
-  x: positionXAbs,
-  y: positionYAbs,
-  z: positionZAbs,
-} = INITIAL_POSITION_ABSOLUTE;
-const { x: velocityXAbs, y: velocityYAbs, z: velocityZAbs } = VELOCITY_ABSOLUTE;
-const randomRGB = { r: Math.random, g: Math.random, b: Math.random };
-
-const handleGenerateNewParticles = () => {
-  const RtLParticles = generateParticles(
-    { x: positionXAbs, y: positionYAbs, z: positionZAbs },
-    { x: () => -velocityXAbs(), y: velocityYAbs, z: velocityZAbs },
-    randomRGB,
-  );
-  const LtRParticles = generateParticles(
-    { x: () => -10, y: positionYAbs, z: positionZAbs },
-    { x: velocityXAbs, y: velocityYAbs, z: velocityZAbs },
-    randomRGB,
-  );
-  return [...RtLParticles, ...LtRParticles];
-};
 
 function App() {
   const [visitedDate, setVisitedDate] = useLocalStorage<string | null>({
@@ -35,11 +12,9 @@ function App() {
   });
   const [isVisitedToday, setIsVisitedToday] = useState<boolean>(false);
   const [openCelebrationDialog, setOpenCelebrationDialog] = useState(false);
-  const [explosionTrigger, setExplosionTrigger] = useState<boolean>(false);
-  const [particles, setParticles] = useState<Particle[]>(
-    handleGenerateNewParticles(),
-  );
-  const audio = new Audio("/celebration_cracker.mp3");
+
+  const { handleCelebrate, particles, explosionTrigger, handleResetExplosion } =
+    useCelebration();
 
   const handleOpenCelebrationDialog = () => {
     setOpenCelebrationDialog(true);
@@ -48,22 +23,6 @@ function App() {
   const handleCloseCelebrationDialog = () => {
     setOpenCelebrationDialog(false);
     handleCelebrate();
-  };
-
-  const handleResetExplosion = () => {
-    setExplosionTrigger(false);
-    setParticles([]);
-  };
-
-  const handleCelebrate = async () => {
-    playCelebrationSound().then(() => {
-      setParticles(handleGenerateNewParticles());
-      setExplosionTrigger(true);
-    });
-  };
-
-  const playCelebrationSound = async () => {
-    await audio.play();
   };
 
   useEffect(() => {
@@ -84,9 +43,6 @@ function App() {
 
   return (
     <div>
-      <button onClick={handleCelebrate} disabled={explosionTrigger}>
-        お祝いアクションの実行
-      </button>
       <CelebrationDialog
         open={openCelebrationDialog}
         handleClose={handleCloseCelebrationDialog}

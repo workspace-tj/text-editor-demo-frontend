@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { INITIAL_POSITION_ABSOLUTE, VELOCITY_ABSOLUTE } from "../constants";
 
 export interface Particle {
   position: THREE.Vector3;
@@ -31,4 +32,26 @@ export const generateParticles = (
     };
   });
   return particles;
+};
+
+const {
+  x: positionXAbs,
+  y: positionYAbs,
+  z: positionZAbs,
+} = INITIAL_POSITION_ABSOLUTE;
+const { x: velocityXAbs, y: velocityYAbs, z: velocityZAbs } = VELOCITY_ABSOLUTE;
+const randomRGB = { r: Math.random, g: Math.random, b: Math.random };
+
+export const handleGenerateCelebrationParticles = () => {
+  const RtLParticles = generateParticles(
+    { x: positionXAbs, y: positionYAbs, z: positionZAbs },
+    { x: () => -velocityXAbs(), y: velocityYAbs, z: velocityZAbs },
+    randomRGB,
+  );
+  const LtRParticles = generateParticles(
+    { x: () => -10, y: positionYAbs, z: positionZAbs },
+    { x: velocityXAbs, y: velocityYAbs, z: velocityZAbs },
+    randomRGB,
+  );
+  return [...RtLParticles, ...LtRParticles];
 };

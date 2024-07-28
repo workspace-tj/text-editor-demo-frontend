@@ -3,9 +3,11 @@ import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import IconSvg from "../../assets/icon.svg";
+import { useCelebration } from "../../hooks/useCelebration";
 
 export function Header(): React.ReactElement {
   const { t } = useTranslation();
+  const { handleCelebrate, explosionTrigger } = useCelebration();
   return (
     <>
       <header className="header">
@@ -24,7 +26,7 @@ export function Header(): React.ReactElement {
               title={t("word.お祝いアクションの実行")}
               sx={{ gridArea: "celebration" }}
             >
-              <IconButton>
+              <IconButton disabled={explosionTrigger} onClick={handleCelebrate}>
                 <Celebration />
               </IconButton>
             </Tooltip>
