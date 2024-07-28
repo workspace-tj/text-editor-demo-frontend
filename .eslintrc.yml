@@ -30,7 +30,7 @@ rules:
         - { pattern: "~/**", group: "parent" }
         - { pattern: "react", group: "parent", position: "before" }
   import/no-unresolved: 0
-  "no-unused-vars": "error"
+  "no-unused-vars": "off"
   "@typescript-eslint/no-unused-vars": ["error", {}]
   "react/jsx-curly-brace-presence": "error"
   "react-hooks/rules-of-hooks": "error"

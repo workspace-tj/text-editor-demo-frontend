@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import ParticleSketch from "./components/atoms/ParticleSketch";
 import { CelebrationDialog } from "./components/molcules/CelebrationDialog";
+import { EditorContainer } from "./components/organisms/EditorContainer";
 import { useCelebration } from "./hooks/useCelebration";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
@@ -47,6 +48,7 @@ function App() {
         open={openCelebrationDialog}
         handleClose={handleCloseCelebrationDialog}
       />
+      <EditorContainer />
       <ParticleSketch
         particles={particles}
         explosionsTrigger={explosionTrigger}
