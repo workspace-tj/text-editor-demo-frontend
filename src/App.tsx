@@ -83,7 +83,7 @@ function App() {
   }, [visitedDate, setVisitedDate, isVisitedToday]);
 
   return (
-    <div style={{ maxWidth: "100vw", maxHeight: "100vh" }}>
+    <div>
       <button onClick={handleCelebrate} disabled={explosionTrigger}>
         お祝いアクションの実行
       </button>
