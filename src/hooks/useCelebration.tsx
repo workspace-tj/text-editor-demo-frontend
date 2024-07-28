@@ -7,6 +7,8 @@ import {
 interface UseCelebration {
   explosionTrigger: boolean;
   setExplosionTrigger: React.Dispatch<React.SetStateAction<boolean>>;
+  isMuted: boolean;
+  setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
   particles: Particle[];
   setParticles: React.Dispatch<React.SetStateAction<Particle[]>>;
   playCelebrationSound: () => Promise<void>;
@@ -37,6 +39,7 @@ export function CelebrationProvider({
 
 export const useCelebrationProvider = () => {
   const [explosionTrigger, setExplosionTrigger] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
   const [particles, setParticles] = useState<Particle[]>(
     handleGenerateCelebrationParticles(),
   );
@@ -44,7 +47,7 @@ export const useCelebrationProvider = () => {
   const audio = new Audio("/celebration_cracker.mp3");
 
   const playCelebrationSound = async () => {
-    await audio.play();
+    !isMuted && (await audio.play());
   };
 
   const handleResetExplosion = () => {
@@ -61,6 +64,8 @@ export const useCelebrationProvider = () => {
   return {
     explosionTrigger,
     setExplosionTrigger,
+    isMuted,
+    setIsMuted,
     particles,
     setParticles,
     handleCelebrate,

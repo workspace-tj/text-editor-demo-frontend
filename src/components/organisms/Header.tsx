@@ -4,10 +4,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import IconSvg from "../../assets/icon.svg";
 import { useCelebration } from "../../hooks/useCelebration";
+import { VolumeSwitch } from "../atoms/VolumeSwitch";
 
 export function Header(): React.ReactElement {
   const { t } = useTranslation();
-  const { handleCelebrate, explosionTrigger } = useCelebration();
+  const { handleCelebrate, explosionTrigger, isMuted, setIsMuted } =
+    useCelebration();
   return (
     <>
       <header className="header">
@@ -22,9 +24,14 @@ export function Header(): React.ReactElement {
             >
               Text&nbsp;Editor&nbsp;Demo
             </Typography>
+            <VolumeSwitch
+              value={!isMuted}
+              onChange={(_, checked) => setIsMuted(!checked)}
+              sx={{ gridArea: "volume-switch" }}
+            />
             <Tooltip
               title={t("word.お祝いアクションの実行")}
-              sx={{ gridArea: "celebration" }}
+              sx={{ gridArea: "celebration-button" }}
             >
               <IconButton disabled={explosionTrigger} onClick={handleCelebrate}>
                 <Celebration />
