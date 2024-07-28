@@ -5,7 +5,7 @@ body {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: 56px auto 32px;
+  grid-template-rows: 56px auto 24px;
   grid-template-areas:
     "header"
     "main"
@@ -20,6 +20,17 @@ body {
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+.header-container {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-template-areas: "icon title ... celebration";
+  grid-template-rows: auto;
+  column-gap: 8px;
+  padding-inline: 24px;
+  padding-block: 8px;
+  align-items: center;
+}
+
 .main {
   grid-area: main;
   overflow-y: auto;
@@ -27,4 +38,14 @@ body {
 
 .footer {
   grid-area: footer;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "... version";
+  grid-template-rows: auto;
+  column-gap: 16px;
+  padding-inline: 8px;
+  align-items: end;
 }
