@@ -1,0 +1,7 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <rect x="24" y="24" width="80" height="96" fill="#b3bfb8" stroke="#3c493f" stroke-width="4"/>
+  <rect x="32" y="16" width="80" height="96" fill="#7e8d85" stroke="#3c493f" stroke-width="4"/>
+  <rect x="40" y="8" width="80" height="96" fill="#ffffff" stroke="#3c493f" stroke-width="4"/>
+  <path d="M56 40 L104 40 M56 56 L104 56 M56 72 L104 72 M56 88 L88 88" stroke="#3c493f" stroke-width="4"/>
+  <text x="70" y="28" font-family="Arial, sans-serif" font-size="14" fill="#3c493f" font-weight="bold" text-anchor="middle">TED</text>
+</svg>
