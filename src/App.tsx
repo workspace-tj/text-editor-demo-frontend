@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
+import ParticleSketch from "./components/atoms/ParticleSketch";
+// import { Tape } from "./components/atoms/Tape";
 import { CelebrationDialog } from "./components/molcules/CelebrationDialog";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
@@ -9,18 +11,18 @@ function App() {
     initialValue: null,
   });
   const [isVisitedToday, setIsVisitedToday] = useState<boolean>(false);
-  const [openSelebrationDialog, setOpenSelebrationDialog] = useState(false);
+  const [openCelebrationDialog, setOpenCelebrationDialog] = useState(false);
 
-  const handleOpenSelebrationDialog = () => {
-    setOpenSelebrationDialog(true);
+  const handleOpenCelebrationDialog = () => {
+    setOpenCelebrationDialog(true);
   };
 
-  const handleCloseSelebrationDialog = () => {
-    setOpenSelebrationDialog(false);
-    handleSelebrate();
+  const handleCloseCelebrationDialog = () => {
+    setOpenCelebrationDialog(false);
+    handleCelebrate();
   };
 
-  const handleSelebrate = () => {
+  const handleCelebrate = () => {
     playCelebrationSound();
     setTimeout(() => playCelebrationSound(), 300);
     setTimeout(() => playCelebrationSound(), 600);
@@ -38,7 +40,7 @@ function App() {
     if (!visitedDate) {
       setVisitedDate(dayjs().utc().toISOString());
       setIsVisitedToday(true);
-      handleOpenSelebrationDialog();
+      handleOpenCelebrationDialog();
     } else {
       setIsVisitedToday(true);
       const diffDate = dayjs().utc().diff(dayjs(visitedDate).utc(), "day");
@@ -48,14 +50,32 @@ function App() {
       }
     }
   }, [visitedDate, setVisitedDate, isVisitedToday]);
-
+  const [explosions, setExplosions] = useState<Array<number>>([
+    new Date().getTime(),
+  ]);
   return (
-    <>
+    <div
+      style={{ maxWidth: "100vw", maxHeight: "100vh", position: "relative" }}
+    >
       <CelebrationDialog
-        open={openSelebrationDialog}
-        handleClose={handleCloseSelebrationDialog}
+        open={openCelebrationDialog}
+        handleClose={handleCloseCelebrationDialog}
       />
-    </>
+      <ParticleSketch
+        explosions={explosions}
+        setExplosions={setExplosions}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: -1,
+          background: `${"lightgreen"}`,
+        }}
+      />
+      {/* <Tape /> */}
+    </div>
   );
 }
 
