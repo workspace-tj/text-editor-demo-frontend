@@ -2,32 +2,33 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
+import { Particle } from "../../utils/particle-helper";
 import { ParticleSystem } from "./ParticleSystem";
 
 interface ParticleSketchProps {
-  explosions: number[];
-  setExplosions: React.Dispatch<React.SetStateAction<number[]>>;
+  particles: Particle[];
+  explosionsTrigger: boolean;
+  onCompleted: () => void;
   style?: React.CSSProperties;
 }
 
-export default function ParticleSketch(props: ParticleSketchProps) {
-  const { explosions, setExplosions, style } = props;
-
+export default function ParticleSketch({
+  explosionsTrigger,
+  onCompleted,
+  style,
+  particles,
+}: ParticleSketchProps) {
   return (
     <Canvas style={style}>
       <ambientLight intensity={0.1} />
       <directionalLight position={[0, 0, 100]} />
-      {explosions.map((id) => (
+      {explosionsTrigger && (
         <ParticleSystem
-          key={id}
-          duration={10}
-          onCompleted={() => {
-            setExplosions((prev) =>
-              prev.filter((explosion) => explosion !== id),
-            );
-          }}
+          particles={particles}
+          duration={6}
+          onCompleted={onCompleted}
         />
-      ))}
+      )}
       <OrbitControls
         enableZoom={false}
         maxPolarAngle={Math.PI / 3}
