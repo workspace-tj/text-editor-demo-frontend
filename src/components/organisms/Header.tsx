@@ -25,7 +25,7 @@ export function Header(): React.ReactElement {
               Text&nbsp;Editor&nbsp;Demo
             </Typography>
             <VolumeSwitch
-              value={!isMuted}
+              checked={!isMuted}
               onChange={(_, checked) => setIsMuted(!checked)}
               sx={{ gridArea: "volume-switch" }}
             />
